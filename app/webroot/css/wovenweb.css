@@ -1,0 +1,160 @@
+@import url("reset.css");
+
+body {
+	color:#333333;
+	font-family:Helvetica,Arial,Sans-Serif;
+	font-size:11px;
+}
+a {
+	color: #A7BAD4;
+}
+h1 {
+	border-bottom:0 none;
+	color:#000000;
+	font-size:18px;
+	font-weight:bold;
+	line-height:22px;
+	margin:0;
+	padding:10px 0 12px;
+}
+h2 {
+	border-bottom:0 none;
+	color:#000000;
+	font-size:16px;
+	font-weight:bold;
+	line-height:22px;
+	margin:0;
+	padding:10px 0 12px;
+}
+
+td {
+	vertical-align: top;
+}
+
+/* messages */
+#flashMessage {
+	margin:0;
+	padding:10px 10px 10px 35px;
+}
+
+#flashMessage.error {
+	background-color: #FFD1D1;
+	border-bottom:1px solid #F8ACAC;
+	border-top:1px solid #F8ACAC;
+	color: #f00;
+}
+
+#flashMessage.message {
+	background-color: #F5F5F5;
+	border-bottom:1px solid #E9E9E9;
+	border-top:1px solid #E9E9E9;
+	color: #000;
+}
+
+#flashMessage.success {
+	background-color: #E1FFD1;
+	border-bottom:1px solid #C5F8AC;
+	border-top:1px solid #C5F8AC;
+	color: #499524;
+}
+
+/* tables */
+.log {
+	width: 100%;
+	margin: 15px 0;
+}
+.log th {
+	background:transparent url(../img/dark-table-head.gif) repeat-x scroll left top;
+	color:#42424C;
+	padding:11px 6px 10px;
+	font-size: 12px;
+	font-weight: bold;
+}
+th.headerLeft {
+	background:transparent url(../img/dark-table-head-left.gif) no-repeat scroll left top;
+	padding-left:11px;
+}
+th.headerRight {
+	background:transparent url(../img/dark-table-head-right.gif) no-repeat scroll right top;
+	padding-right:11px;
+}
+.log th a {
+	color: inherit;
+}
+.log td {
+	border-bottom:1px solid #E9E9E9;
+	color:#4C4C4C;
+	padding:4px 6px;
+}
+td.rowLeft {
+	padding-left:11px;
+}
+td.rowRight {
+	padding-right: 11px;
+}
+tr:hover td {
+	background-color: #FEFFE0;
+}
+.odd td {
+	background-color: #F9F9F9;
+}
+
+/* Paging */
+div.paging {
+	background:#fff;
+	color: #ccc;
+	margin-bottom: 2em;
+}
+div.paging div.disabled {
+	color: #ddd;
+	display: inline;
+}
+div.paging span {
+}
+div.paging span.current {
+	color: #000;
+}
+div.paging span a {
+}
+
+/* layout */
+body {
+	background: #2B3036 url(../img/bg.png) repeat-x fixed 0 bottom;
+	padding-top: 30px;
+	text-align: center;
+}
+
+.container {
+	width: 747px;
+	text-align: left;
+	margin: 0 auto;
+}
+
+#header {
+	height: 50px;
+}
+
+h1#logo {
+	background: url(../img/logo.png) no-repeat;
+	height:46px;
+	margin:0 0 23px -3px;
+	width:374px;
+	text-indent: -9999px;
+}
+
+#content {
+	padding: 15px;
+	background: #fff;
+	border: 1px solid #fff;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+}
+
+#footer {
+	color: #A7ABAD;
+	text-align: center;
+	padding: 20px 0;
+}
+#footer a {
+	color: inherit;
+}

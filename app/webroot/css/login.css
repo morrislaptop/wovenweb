@@ -1,0 +1,141 @@
+@import url("reset.css");
+
+/* HTML, Common Classes */
+body {
+	font-family:Helvetica,Arial,sans-serif;
+	color: #F3F3F3;
+	font-size: 11px;
+}
+a {
+	color: #A7BAD4;
+}
+
+/* Layout */
+html, body {
+	height: 100%;
+}
+body {
+	background: #495055 url(../img/login_body_bg.jpg) repeat-x left 50%;
+}
+h2 {
+	font-size:15px;
+	font-weight:bold;
+	line-height:20px;
+	margin-bottom:3px;
+}
+
+.container {
+	background: url(../img/login_bg.jpg) no-repeat -55px 50%;
+	height: 100%;
+}
+
+#content {
+	height:426px;
+	left:50%;
+	margin-top:-213px;
+	position:absolute;
+	top:50%;
+	width:480px;
+}
+
+h1#logo {
+	background: url(../img/logo.png) no-repeat;
+	height:46px;
+	margin:0 0 23px -3px;
+	width:374px;
+	text-indent: -9999px;
+}
+
+fieldset {
+	height:82px;
+	position:relative;
+}
+
+.input {
+	float: left;
+	margin-top: 8px;
+	border-bottom: none;
+	padding: 0;
+}
+.text input, .password input {
+	height:1.35em;
+	line-height:17px;
+	margin:0 6px 0 0;
+	width:185px;
+}
+.submit {
+	margin:0;
+	position:absolute;
+	right:0;
+	top:6px;
+	width:86px;
+}
+.submit input {
+	padding: 2px;
+}
+
+.checkbox, #forgot {
+	left: -3px;
+	margin-top:8px;
+	padding:0;
+	position:absolute;
+	top:33px;
+}
+#forgot {
+	left: 198px;
+	top: 39px;
+}
+
+#notamember {
+	font-weight: bold;
+}
+
+.features {
+	margin-top:30px;
+	padding-top:38px;
+}
+.features h2 {
+	margin-bottom: 13px;
+}
+
+.features li {
+	background: no-repeat;
+	padding-left: 30px;
+	line-height: 25px;
+	height: 25px;
+}
+.features li.sync {
+	background-image: url(../img/refresh.png);
+}
+.features li.content {
+	background-image: url(../img/content.png);
+}
+.features li.everywhere {
+	background-image: url(../img/layout.png);
+}
+
+#footer {
+	position: absolute;
+	bottom: 20px;
+	color: #95989B;
+}
+#footer a {
+	color: #EEEEEE;
+}
+
+#footer .menu {
+	margin-left: 42px;
+	float: left;
+}
+#footer .menu li {
+	display: block;
+	float: left;
+	margin-right: 21px;
+}
+#copyright {
+	float: left;
+}
+#copyright a {
+	color: inherit;
+	text-decoration: none;
+}

@@ -1,0 +1,46 @@
+form h1, form h2, form p {
+	padding-left: 7px;
+}
+.input {
+	margin-bottom: 8px;
+	padding: 7px;
+}
+
+.text input, .password input, select {
+	border: 2px solid #dfdfdf;
+	margin-right: 3px;
+}
+
+.required label {
+	font-weight: bold;
+}
+
+/* Layout */
+label {
+	display: block;
+}
+.grid label {
+	float: left;
+	width: 150px;
+}
+
+/* Buttons */
+.submit {
+	text-align: right;
+}
+
+/* Focused */
+.focused {
+	background-color: #fffcdf;
+}
+.focused.text input, .focused.password input {
+	border-color: #DFD77D;
+}
+
+/* Errors */
+.error.text input, .error.password input, .error select {
+	border-color: #F77171;
+}
+.error-message {
+	color: #8D3F3F;
+}
