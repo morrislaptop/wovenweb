@@ -42,6 +42,15 @@ class AppController extends Controller {
 	var $helpers = array('Html', 'Form', 'Javascript');
 	var $components = array('Auth', 'RequestHandler', 'DebugKit.Toolbar' => array('history' => false));
 	
+	/**
+	* @var AuthComponent
+	*/
+	var $Auth;
+	
+	function beforeFilter() {
+		$this->Auth->loginAction = array('plugin' => null, 'controller' => 'users', 'action' => 'login');
+	}
+	
 	function beforeRender() {
 		$this->sensitiveDebug();
 	}

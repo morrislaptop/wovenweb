@@ -125,6 +125,7 @@ $.fn.ajaxAddOption = function(url, params, select, fn, args)
 				params,
 				function(r)
 				{
+					$(el).html("");
 					$(el).addOption(r, select);
 					if(typeof fn == "function")
 					{
