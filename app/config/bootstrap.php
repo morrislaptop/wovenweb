@@ -43,7 +43,7 @@
  *
  */
 $debug = 2;
-if ( !isset($_SERVER['HTTP_HOST']) || 'wovenweb.local' == $_SERVER['HTTP_HOST'] ) {
+if ( 'cli' == php_sapi_name() || 'wovenweb.local' == $_SERVER['HTTP_HOST'] ) {
 	Configure::write('App.server', 'dev');
 }
 else if ( 'bigfoot.thetopiaproject.com' == $_SERVER['HTTP_HOST'] ) {
@@ -55,7 +55,7 @@ else {
 	$debug = 1;
 }
 // Enable debugging for me;)
-if ( strpos($_SERVER['HTTP_USER_AGENT'], 'Debugger') !== false ) {
+if ( isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], 'Debugger') !== false ) {
 	$debug = 2;
 }
 Configure::write('debug', $debug);
