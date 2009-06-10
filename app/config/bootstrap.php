@@ -42,6 +42,23 @@
  * $controllerPaths = array('this path to controllers', 'second full path to controllers', 'etc...');
  *
  */
+$debug = 2;
+if ( !isset($_SERVER['HTTP_HOST']) || 'wovenweb.local' == $_SERVER['HTTP_HOST'] ) {
+	Configure::write('App.server', 'dev');
+}
+else if ( 'bigfoot.thetopiaproject.com' == $_SERVER['HTTP_HOST'] ) {
+	Configure::write('App.server', 'stage');
+	$debug = 1;
+}
+else {
+	Configure::write('App.server', 'live');
+	$debug = 1;
+}
+// Enable debugging for me;)
+if ( strpos($_SERVER['HTTP_USER_AGENT'], 'Debugger') !== false ) {
+	$debug = 2;
+}
+Configure::write('debug', $debug);
 Configure::write('App.languages', array('en' => 'English'));
 //EOF
 ?>
