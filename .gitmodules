@@ -1,9 +1,12 @@
-[submodule "app/plugins/github_harvest"]
-	path = app/plugins/github_harvest
-	url = git@github.com:morrislaptop/github_harvest.git
 [submodule "cake"]
 	path = cake
 	url = git@thechaw.com:forks/morrislaptop/cakephp.git
 [submodule "app/plugins/debug_kit"]
 	path = app/plugins/debug_kit
 	url = git@thechaw.com:debug_kit.git
+[submodule "app/plugins/interactive"]
+	path = app/plugins/interactive
+	url = git://github.com/mcurry/interactive.git
+[submodule "app/plugins/github_harvest"]
+	path = app/plugins/github_harvest
+	url = git://github.com/morrislaptop/github_harvest.git
