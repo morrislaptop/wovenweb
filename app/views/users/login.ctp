@@ -18,8 +18,8 @@
 		<h2>The simple way to keep everything in sync.</h2>
 		<ul>
 			<li class="sync">Timesheets, messages, and whatever.  In sync whatever you use.</li>
-			<li class="content">Simple, elegant use what the web app was meant to do.</li>
-			<li class="everywhere">Open Source. <?php echo $html->link('Create your own bridge', '#'); ?>.</li>
+			<li class="everywhere">See what <?php echo $html->link('app bridges', '/blog/category/bridges/supported'); ?> are already supported.</li>
+			<li class="content">Vote on the <?php echo $html->link('bridges', '/blog/category/bridges/pending'); ?> you want or <?php echo $html->link('create your own bridge', '/blog/create'); ?>.</li>
 		</ul>
 	</div>
 </div>

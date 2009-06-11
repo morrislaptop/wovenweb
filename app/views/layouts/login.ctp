@@ -18,6 +18,7 @@
 		</div>
 		<div id="footer">
     		<ul class="menu">
+    			<li><?php echo $html->link('Blog', '/blog/'); ?></li>
     			<li><?php echo $html->link('Terms of Use', array('controller' => 'pages', 'action' => 'display', 'terms')); ?></li>
     			<li><?php echo $html->link('Privacy Policy', array('controller' => 'pages', 'action' => 'display', 'privacy')); ?></li>
     			<li><?php echo $html->link('Help', array('controller' => 'pages', 'action' => 'display', 'help')); ?></li>
