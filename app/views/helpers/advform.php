@@ -4,8 +4,10 @@ App::import('Helper', 'Form');
 class AdvformHelper extends FormHelper {
 
 	var $helpers = array('Html', 'Javascript');
+
 	var $wysiwygEmbedded = false;
 	var $calendarEmbedded = false;
+	var $focusEmbedded = false;
 
 	/**
 	* put your comment there...
@@ -14,17 +16,10 @@ class AdvformHelper extends FormHelper {
 	*/
 	var $Html;
 
-	function create($model = null, $options = array()) 
+	function create($model = null, $options = array())
 	{
 		// include required files.
-		$this->Javascript->codeBlock('
-$(function() {
-	$("input, select, textarea").focus(function() {
-		$(this).parent("div.input").addClass("focused");
-	}).blur(function() {
-		$(this).parent("div.input").removeClass("focused");
-	});
-});', array('inline' => false));
+		$this->embedFocus();
 
 		if ( is_array($model) ) {
 			// put the first model into the form helper and then add onto the validations array with further models.
@@ -75,16 +70,12 @@ $(function() {
 			$options['type'] = 'text';
 		}
 		else if ( 'wysiwyg' == $type ) {
-			if ( !$this->wysiwygEmbedded ) {
-				$this->embedWysiwyg();
-			}
+			$this->embedWysiwyg();
 			$options['type'] = 'textarea';
 			$options['class'] = 'tinymce';
 		}
 		else if ( 'calendar' == $type ) {
-			if ( !$this->calendarEmbedded ) {
-				$this->embedCalendar();
-			}
+			$this->embedCalendar();
 			$options['type'] = 'text';
 			$options['class'] = 'calendar';
 			if ( strpos($fieldName, '.') === false ) {
@@ -97,7 +88,7 @@ $(function() {
 
 		return parent::input($fieldName, $options);
 	}
-	
+
 	function inputWithDefault($fieldName, $default, $options) {
 		$this->setEntity($fieldName);
 		$value = $this->value();
@@ -107,21 +98,21 @@ $(function() {
 		else {
 			$id = $this->domId();
 		}
-		
+
 		// if there is a value, return as normal
 		if ( !empty($value['value']) ) {
-			return parent::input($fieldName, $options);	
+			return parent::input($fieldName, $options);
 		}
-		
+
 		$blurColor = '#808080';
 		if ( !empty($options['blurColor']) ) {
 			$blurColor = $options['blurColor'];
 			unset($options['blurColor']);
 		}
-		
+
 		// start the fun!
 		$jsDefault = $this->Javascript->escapeString($default);
-		
+
 		$js = '
 $("#' . $id . '").focus(function() {
 	if ( this.value == "' . $jsDefault . '" ) {
@@ -135,31 +126,104 @@ $("#' . $id . '").focus(function() {
 	}
 });
 		';
-		
+
 		$newOptions = array(
 			'value' => $default,
 			'after' => $this->Javascript->codeBlock($js),
 			'style' => 'color: ' . $blurColor
 		);
-		
+
 		return $this->input($fieldName, array_merge($newOptions, $options));
 	}
 
 	function embedWysiwyg()
 	{
+		if ( $this->wysiwygEmbedded ) {
+			return;
+		}
 		$this->wysiwygEmbedded = true;
 		$this->Javascript->link('tiny_mce/tiny_mce', false);
-		$view = ClassRegistry::getObject('view');
-		echo $view->element('admin' . DS . 'tiny_mce', array('plugin' => 'uniform'));
+		$js = <<<JS
+tinyMCE.init({
+    mode: "specific_textareas",
+    theme: "advanced",
+
+    // @TODO cleanup unneeded plugins
+    plugins: "style,paste,inlinepopups,table,imagemanager,filemanager",
+    doctype: '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">',
+
+    // Theme options
+    theme_advanced_buttons1: "pasteword,bold,italic,|justifyleft,justifycenter,justifyright,|,formatselect,styleselect,removeformat,|,bullist,numlist,|,outdent,indent,blockquote,|,link,unlink,anchor,image,|,table,charmap,code",
+	theme_advanced_buttons2: "",
+	theme_advanced_buttons3: "",
+    theme_advanced_toolbar_location: "top",
+    theme_advanced_toolbar_align: "left",
+    theme_advanced_statusbar_location: "bottom",
+    theme_advanced_resizing: true,
+    theme_advanced_resize_horizontal: false,
+	theme_advanced_path: true,
+    width: '100%',
+
+    // File manager
+	plugin_simplebrowser_width : '800', //default
+	plugin_simplebrowser_height : '600', //default
+    plugin_simplebrowser_browselinkurl : '/uniform/js/tiny_mce/plugins/simplebrowser/browser.html?Connector=connectors/php/connector.php',
+    plugin_simplebrowser_browseimageurl : '/uniform/js/tiny_mce/plugins/simplebrowser/browser.html?Type=Image&Connector=connectors/php/connector.php',
+    plugin_simplebrowser_browseflashurl : '/uniform/js/tiny_mce/plugins/simplebrowser/browser.html?Type=Flash&Connector=connectors/php/connector.php',
+
+    // Which textareas?
+    editor_selector: "tinymce",
+
+    // URLs
+    relative_urls: false,
+    remove_script_host: true,
+    document_base_url: 'http://{$_SERVER['SERVER_NAME']}{$this->base}/',
+
+    // Paste Options
+
+
+    // CSS
+    content_css: '{$html->url('/css/content.css')}'
+});
+JS;
+
+		$javascript->codeBlock($js, array('inline' => false));
 	}
 
 	function embedCalendar()
 	{
+		if ( $this->calendarEmbedded ) {
+			return;
+		}
 		$this->calendarEmbedded = true;
 		$this->Html->css('calendar/css/smoothness/jquery-ui-1.7.1.custom', null, null, false);
 		$this->Javascript->link('calendar/js/jquery-ui-1.7.1.custom.min', false);
-		$view = ClassRegistry::getObject('view');
-		echo $view->element('admin' . DS . 'calendar', array('plugin' => 'uniform'));
+		$js = <<<JS
+$(function() {
+    $(".calendar").datepicker({
+    	dateFormat: 'yy-mm-dd' ,
+    	duration: ''
+    });
+});
+JS;
+		$this->Javascript->codeBlock($js, array('inline' => false));
+	}
+
+	function embedFocus() {
+		if ( $this->focusEmbedded ) {
+			return;
+		}
+		$this->focusEmbedded = true;
+		$js = <<<JS
+$(function() {
+	$("input, select, textarea").focus(function() {
+		$(this).parent("div.input").addClass("focused");
+	}).blur(function() {
+		$(this).parent("div.input").removeClass("focused");
+	});
+});
+JS;
+		$this->Javascript->codeBlock($js, array('inline' => false));
 	}
 }
 ?>
