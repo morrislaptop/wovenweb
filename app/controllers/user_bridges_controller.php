@@ -46,10 +46,14 @@ class UserBridgesController extends AppController {
 			'bridge_id' => $bridge_id,
 			'user_id' => $this->Auth->user('id'),
 		);
+		$this->UserBridge->create();
 		$this->UserBridge->save($data);
 		
 		// 2. Redirect to configure
-		$this->redirect(array_merge($this->_getPluginRedirectArray($this->UserBridge->id), array('action' => 'configure', $id)));
+		$url = $this->_getPluginRedirectArray($this->UserBridge->id);
+		$new = array('action' => 'configure', $this->UserBridge->id);
+		$url = array_merge($url, $new);
+		$this->redirect($url);
 	}
 	
 	function configure($id) {
@@ -62,6 +66,7 @@ class UserBridgesController extends AppController {
 	
 	function _getPluginRedirectArray($user_bridge_id)
 	{
+		
 		$this->UserBridge->contain(array('Bridge' => array('FromApp', 'ToApp')));
 		$user_bridge = $this->UserBridge->read(null, $user_bridge_id);
 		$plugin = strtolower($user_bridge['Bridge']['FromApp']['name'] . '_' . $user_bridge['Bridge']['ToApp']['name']);

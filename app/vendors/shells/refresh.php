@@ -1,9 +1,9 @@
 <?php
-class SyncShell extends Shell
+class RefreshShell extends Shell
 {
 	function main()
 	{
-		$this->out("Running WovenWeb Sync");
+		$this->out("Running WovenWeb Refresh");
 		
 		// Append to $this->uses the model for all installed plugins.
 		$pluginPaths = Configure::read('pluginPaths');
@@ -29,9 +29,9 @@ class SyncShell extends Shell
 			if (strpos($model, '.') !== false) {
 				list($plugin, $modelClassName) = explode('.', $model);
 			}
-			if ( method_exists($this->$modelClassName, 'sync') ) {
-				$this->out('Calling ' . $modelClassName . '->sync()');
-				$this->$modelClassName->sync();
+			if ( method_exists($this->$modelClassName, 'refresh') ) {
+				$this->out('Calling ' . $modelClassName . '->refresh()');
+				$this->$modelClassName->refresh();
 			}
 		}
 	}

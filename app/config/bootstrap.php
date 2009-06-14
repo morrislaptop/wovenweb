@@ -52,7 +52,7 @@ else if ( 'bigfoot.thetopiaproject.com' == $_SERVER['HTTP_HOST'] ) {
 }
 else {
 	Configure::write('App.server', 'live');
-	$debug = 1;
+	$debug = 0;
 }
 // Enable debugging for me;)
 if ( isset($_SERVER['HTTP_USER_AGENT']) && strpos($_SERVER['HTTP_USER_AGENT'], 'Debugger') !== false ) {

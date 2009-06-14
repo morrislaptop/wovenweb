@@ -1,5 +1,14 @@
 <h1 id="logo">Woven Web</h1>
-<h2>Log in to <?php echo env('HTTP_HOST'); ?></h2>
+<?php
+	if ( $session->check('Message.auth') ) {
+		$session->flash('auth'); 
+	}
+	else {
+		?>
+		<h2>Log in to <?php echo env('HTTP_HOST'); ?></h2>
+		<?php
+	}
+?>
 <?php echo $advform->create('User', array('action' => 'login')); ?>
 	<fieldset>
 		<?php echo $advform->inputWithDefault('email', 'email', array('label' => false, 'class' => 'text', 'id' => 'username')); ?>
